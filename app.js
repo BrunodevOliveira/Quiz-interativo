@@ -3,19 +3,39 @@ const inputs = document.querySelectorAll('input')
 
 const correctAnswers = ['B', 'B', 'B', 'B']
 const paragraphScore = document.createElement('p')
+paragraphScore.classList.add('my-5', 'text-white', 'bg-success','badge')
 
+const answerScore = (score) => {
 
-const respScore = (score) => {
-    if(score === 0) {
-        paragraphScore.textContent = `🤨 Sua pontuação foi de: ${score}! Refaça o ATER e tente novamente!`
-    } else if (score === 25) {
-        paragraphScore.textContent = `😐 Sua pontuação foi de: ${score}! Vamos tentar novamente!`
-    } else if(score === 50) {
-        paragraphScore.textContent = `🙂 Sua pontuação foi de: ${score}! Tente novamente, pode melhorar!`
-    } else if (score === 75) {
-        paragraphScore.textContent = `😉 Sua pontuação foi de: ${score}! Parabéns!`
-    } else {
-        paragraphScore.textContent = `😁 Sua pontuação foi de: ${score}! Excelente! Está cada vez mais próximo da fluência em JavaScript!`
+    const feedbackPhrases = {
+        score0: `🤨 Sua pontuação foi de: ${score}! Refaça o ATER e tente novamente!`,
+        score25: `😐 Sua pontuação foi de: ${score}! Vamos tentar novamente!`,
+        score50: `🙂 Sua pontuação foi de: ${score}! Tente novamente, pode melhorar!`,
+        socre75: `😉 Sua pontuação foi de: ${score}! Parabéns!`,
+        socre100: `😁 Sua pontuação foi de: ${score}! Excelente! Está cada vez mais próximo da fluência em JavaScript!`
+    }
+
+    switch (score) {
+        case 0:
+            paragraphScore.textContent = feedbackPhrases.score0
+            break
+
+        case 25:
+            paragraphScore.textContent = feedbackPhrases.score25
+            break
+
+        case 50:
+            paragraphScore.textContent = feedbackPhrases.score50
+            break
+
+        case 75:
+            paragraphScore.textContent = feedbackPhrases.socre75
+            break
+
+        case 100: 
+        paragraphScore.textContent = feedbackPhrases.socre100
+            break
+        
     }
 
     form.insertAdjacentElement('afterend', paragraphScore)
@@ -40,14 +60,5 @@ form.addEventListener('submit', event => {
         }
     }) 
     
-    respScore(score)
-})
-
-inputs.forEach(input => { 
-    input.addEventListener('click', event => {
-        const clickElement = event.target
-        clickElement.nextElementSibling.classList.add('test')
-        clickElement.nextElementSibling.classList.add('option-checked')
-        console.log(clickElement.value)
-    })
+    answerScore(score)
 })
